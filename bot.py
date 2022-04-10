@@ -15,7 +15,7 @@ async def on_command_error(ctx, error):
     elif isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
         embed = discord.Embed(title=":x: 失敗 -BadArgument", description=f"指定された引数が足りないため実行出来ません。", timestamp=ctx.message.created_at, color=discord.Colour.red())
         embed.set_footer(text="お困りの場合は、サーバー管理者をメンションしてください。")
-        await ctx.send(embed=embed) 
+        await ctx.send(embed=embed, delete_after=3.0) 
     else:
         raise error
 
