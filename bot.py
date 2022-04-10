@@ -19,11 +19,12 @@ async def 課題(ctx, title, content, simple_date, detail):
 
     conn = connect_redis()
     task = conn.set('title', title)
+    result = conn.get('title')
 
 
 
 
-    await ctx.send(str(task))
+    await ctx.send(str(result))
 
 
 token = os.environ.get('BOT_TOKEN')
