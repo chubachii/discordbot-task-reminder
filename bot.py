@@ -25,6 +25,7 @@ async def 課題(ctx, title, content, simple_date, detail):
 
 
     await ctx.send(str(result))
+    await ctx.send('a')
 
 
 token = os.environ.get('BOT_TOKEN')
