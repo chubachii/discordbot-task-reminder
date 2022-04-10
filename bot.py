@@ -8,7 +8,7 @@ bot = commands.Bot(command_prefix='!')
 
 @bot.event
 async def on_command_error(ctx, error):
-    elif isinstance(error, discord.ext.commands.errors.CommandNotFound):
+    if isinstance(error, discord.ext.commands.errors.CommandNotFound):
         embed = discord.Embed(title=":x: 失敗 -CommandNotFound", description=f"不明なコマンドもしくは現在使用不可能なコマンドです。", timestamp=ctx.message.created_at, color=discord.Colour.red())
         embed.set_footer(text="お困りの場合は、サーバー管理者をメンションしてください。")
         await ctx.send(embed=embed)
