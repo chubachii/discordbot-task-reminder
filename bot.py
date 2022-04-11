@@ -9,12 +9,16 @@ import pytz
 
 TOKEN = os.environ.get('BOT_TOKEN')
 DATABASE_URL = os.environ.get('DATABASE_URL')
-REMIND_TIME = '12:53'
+REMIND_CHANNEL_ID = '371462166097690627'
+REMIND_TIME = '12:59'
 TIME_ZONE = pytz.timezone('Asia/Tokyo')
 w_list = ['(月）', '（火）', '（水）', '（木）', '（金）', '（土）', '（日）']
 
+
 bot = commands.Bot(command_prefix='!')
 dt_now = datetime.datetime.now()
+client = discord.Client()
+channel_remind = client.get_channel(REMIND_CHANNEL_ID)
 
 @tasks.loop(seconds=5)
 async def loop():
@@ -23,7 +27,9 @@ async def loop():
     dt_now = datetime.datetime.now(TIME_ZONE)
 
     if dt_now.strftime('%H:%M') == REMIND_TIME:
-        get_tommorw_tasks()
+        embed_list = get_tommorw_tasks()
+        for embed in embed_list:
+            await channel_remind.send(embed=embed)
 
 def get_tommorw_tasks():
 
