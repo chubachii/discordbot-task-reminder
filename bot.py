@@ -13,7 +13,7 @@ REMIND_CHANNEL_ID = os.environ.get('REMIND_CHANNEL_ID')
 
 REMIND_TIME = '20:00'
 TIME_ZONE = pytz.timezone('Asia/Tokyo')
-w_list = ['(月）', '（火）', '（水）', '（木）', '（金）', '（土）', '（日）']
+w_list = ['（月）', '（火）', '（水）', '（木）', '（金）', '（土）', '（日）']
 
 
 bot = commands.Bot(command_prefix='!')
