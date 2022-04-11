@@ -9,16 +9,46 @@ import pytz
 
 TOKEN = os.environ.get('BOT_TOKEN')
 DATABASE_URL = os.environ.get('DATABASE_URL')
+REMIND_TIME = '12:40'
+TIME_ZONE = pytz.timezone('Asia/Tokyo')
 w_list = ['(月）', '（火）', '（水）', '（木）', '（金）', '（土）', '（日）']
 
 bot = commands.Bot(command_prefix='!')
-dt_now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
+dt_now = datetime.datetime.now()
 
 @tasks.loop(seconds=5)
 async def loop():
     await bot.wait_until_ready()
     global dt_now
-    dt_now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
+    dt_now = datetime.datetime.now(TIME_ZONE)
+
+    if dt_now.strftime('%H:%M') == REMIND_TIME:
+        get_tommorw_tasks()
+
+def get_tommorw_tasks():
+
+    tomorrow = dt_now + datetime.timedelta(1)
+
+    with connect_database() as conn:
+        with conn.cursor() as cur:
+            cur.execute('SELECT * FROM Tasks WHERE deadline = %s', (tomorrow,))
+
+            embed_list = []
+            for i, row in enumerate(cur):
+
+                deadline = row[2]
+               
+                if i == 0:
+                    ## 曜日取得
+                    day_t = deadline.weekday()
+                    embed=discord.Embed(title = str(deadline.month) + ' / ' + str(deadline.day) + w_list[day_t], color=0xffecd5)
+
+                embed.add_field(name='・' + row[0] + '  :  ' + row[1] + '\n　詳細  :  ' + row[3], value=" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", inline=False)
+                
+                if i == len(cur)-1:
+                    embed_list.append(embed)
+                    return embed_list
+
 
 @bot.command()
 async def 追加(ctx, title, content, date_md, detail='なし'):
@@ -53,9 +83,6 @@ async def 削除(ctx, title, date_md):
 
     except Exception as ex:
         print(ex)
-        
- 
-    
 
 @bot.command()
 async def 表示(ctx):
