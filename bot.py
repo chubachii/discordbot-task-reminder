@@ -21,7 +21,7 @@ async def loop():
     dt_now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
 
 @bot.command()
-async def 課題(ctx, title, content, date_md, detail):
+async def 課題(ctx, title, content, date_md, detail='なし'):
 
     # mm/dd 形式を yyyy-mm-dd に
     deadline = addYtoMD(date_md)
@@ -31,6 +31,12 @@ async def 課題(ctx, title, content, date_md, detail):
         embed_list = send_tasks(ctx)
         for embed in embed_list:
             await ctx.send(embed=embed)
+
+@bot.command()
+async def 削除(ctx, title, date_md):
+    # mm/dd 形式を yyyy-mm-dd に
+    deadline = addYtoMD(date_md)
+    
 
 @bot.command()
 async def 表示(ctx):
