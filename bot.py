@@ -19,7 +19,7 @@ w_list = ['(月）', '（火）', '（水）', '（木）', '（金）', '（土
 bot = commands.Bot(command_prefix='!')
 dt_now = datetime.datetime.now()
 
-@tasks.loop(seconds=5)
+@tasks.loop(seconds=50)
 async def loop():
     await bot.wait_until_ready()
     global dt_now
