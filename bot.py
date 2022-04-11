@@ -45,6 +45,9 @@ async def 削除(ctx, title, date_md):
             
                 # コミットし、変更を確定する
                 conn.commit()
+
+    except Exception as ex:
+        print(ex)
         
  
     
