@@ -36,6 +36,17 @@ async def 課題(ctx, title, content, date_md, detail='なし'):
 async def 削除(ctx, title, date_md):
     # mm/dd 形式を yyyy-mm-dd に
     deadline = addYtoMD(date_md)
+
+    try:
+        with connect_database() as conn:
+            with conn.cursor() as cur:
+                # SQLを実行
+                cur.execute('DELETE FROM tasks WHERE title = %s AND deadline = %s', (title, deadline,))
+            
+                # コミットし、変更を確定する
+                conn.commit()
+        
+ 
     
 
 @bot.command()
