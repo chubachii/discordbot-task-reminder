@@ -9,7 +9,7 @@ import pytz
 
 TOKEN = os.environ.get('BOT_TOKEN')
 DATABASE_URL = os.environ.get('DATABASE_URL')
-REMIND_TIME = '12:40'
+REMIND_TIME = '12:53'
 TIME_ZONE = pytz.timezone('Asia/Tokyo')
 w_list = ['(月）', '（火）', '（水）', '（木）', '（金）', '（土）', '（日）']
 
