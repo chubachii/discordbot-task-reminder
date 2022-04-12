@@ -19,6 +19,16 @@ w_list = ['（月）', '（火）', '（水）', '（木）', '（金）', '（�
 bot = commands.Bot(command_prefix='!')
 dt_now = datetime.datetime.now()
 
+@bot.event
+async def on_ready():
+    n, text = get_today_tasks()
+        
+        if n > 0:
+            await bot.change_presence(status=discord.Status.online, activity=discord.Game(name=text))
+        else:
+            await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name=text))
+
+
 @tasks.loop(seconds=50)
 async def loop():
     await bot.wait_until_ready()
