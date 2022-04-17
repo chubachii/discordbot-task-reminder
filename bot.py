@@ -11,7 +11,7 @@ TOKEN = os.environ.get('BOT_TOKEN')
 DATABASE_URL = os.environ.get('DATABASE_URL')
 REMIND_CHANNEL_ID = os.environ.get('REMIND_CHANNEL_ID')
 
-REMIND_TIME = '20:00'
+REMIND_TIME = '20:10'
 TIME_ZONE = pytz.timezone('Asia/Tokyo')
 w_list = ['（月）', '（火）', '（水）', '（木）', '（金）', '（土）', '（日）']
 
